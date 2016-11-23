@@ -96,13 +96,13 @@ firebase.auth().signInAnonymously()
 
         let errorCode = e.code;
         let errorMessage = e.message;
-        console.log('Login error: ' + errorMessage);
+
 
     });
 
 function joinGame() {
 
-    console.log('join game function called by ' + you);
+
     //check for child nodes in lobby, if there are none then add to lobby otherwise grab the oldest to be the opponen
     let query = lobbyFolder.orderByKey();
 
@@ -111,7 +111,7 @@ function joinGame() {
 
             //if nobody is in the lobby, add the user to the lob
             if (!snapshot.val()) {
-                console.log('lobby route called from join game');
+
                 //setup new folder in the lobby
                 let newLobbyFolder = db.ref('/lobby/' + user);
                 newLobbyFolder.set({
@@ -133,7 +133,7 @@ function joinGame() {
 
             } else {
 
-                console.log('auto join route called from join game');
+
                 //grab first child from lobby
                 snapshot.forEach(function(childSnapshot) {
 
@@ -249,7 +249,7 @@ function addGameListeners() {
             you = 'p2';
             them = 'p1';
         }
-        console.log('you are ' + you + ' and they are ' + them);
+
 
         //add 'them' event listeners once them is defined...
     }).then(() => {
@@ -561,8 +561,6 @@ function sendChatMessage(message) {
     let player = you + 'message';
     newMessage[player] = message;
 
-    console.log(you + ' sending message of ' + message);
-
     gameFolder.child(gameID).update(newMessage);
 
     displayChatMessage(message, you);
@@ -676,12 +674,3 @@ function exitGame() {
 
 }
 
-/*
-
-11-23 issues
-
-change chat to...submit? ... tweak so that enter submits msg
-
-doesn't link up new opponent upon sending back to lobby
-
-*/
