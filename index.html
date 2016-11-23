@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rock, Paper, Scissors!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" id="scoreboard">
+            <h2 class="text-center">Rock, Paper, Scissors Online</h2>
+            <h5 class="text-center"><em>First to 3 wins the game</em></h5>
+            <p class="text-center" id="status-message"></p>
+            <div id="input-name-container">
+                <!--                 <div class="form-group" id="input-name">
+    <label class="control-label" for="name-input" id="input-label">Name, please: </label>
+    <input type="text" class="form-control" id="name-input" placeholder="type your name">
+    <button type="submit" class="btn btn-default" id="name-submit">Submit</button>
+</div> -->
+            </div>
+            <div class="row">
+                <div class="col-xs-6" id="user-scoreboard">
+                    <div class="panel">
+                        <div class="panel-header text-center" id="user-header"></div>
+                        <div class="panel-body">
+                            <p class="text-center" id="user-message"></p>
+                            <p class="win-count text-center" id="user-wincount"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6" id="opponent-scoreboard">
+                    <div class="panel">
+                        <div class="panel-header text-center" id="opponent-header"></div>
+                        <div class="panel-body">
+                            <p class="text-center" id="opponent-message"></p>
+                            <p class="win-count text-center" id="opponent-wincount"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 offset-xs-1">
+                    <div class="form-group" id="chat-form">
+                        <div class="panel">
+                            <div class="panel-body clearfix" id="chat-panel">
+                            </div>
+                        </div>
+                        <label class="control-label" for="chat-entry"></label>
+                        <input class="form-control" id="chat-entry" type="text" placeholder="Say something...">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default" id="chat-submit">Chat!</button></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <ul class="list-group" id="selection-menu"> Make Your Choice
+                    <li class="list-group-item selection user rock" id="user-rock" data-pointVal="0">
+                        <span class="badge">R</span> Rock
+                    </li>
+                    <li class="list-group-item selection user paper" id="user-paper" data-pointVal="1">
+                        <span class="badge">P</span> Paper
+                    </li>
+                    <li class="list-group-item selection user scissors" id="user-scissors" data-pointVal="2">
+                        <span class="badge">S</span> Scissors
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <h3>Game Log</h3>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Turn #</th>
+                    <th>Your Choice</th>
+                    <th>Their Choice</th>
+                    <th>Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-container clearfix">
+    <div class="modal" id="play-again-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="submit" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Play again?</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-dismiss="modal" id="quit">No</button>
+                    <button type="button" class="btn btn-primary" id="play-again">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal-container clearfix">
+    <div class="modal" id="exit-game-box">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">You and the opponent didn't chose to play again, so we are taking you back to the lobby</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal-container clearfix">
+    <div class="modal" id="lobby-message">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Waiting to find an opponent</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+    <!-- JS for this file -->
+    <script type="text/javascript" src="assets/javascript/javascript2.js"></script>
+</body>
+
+</html>
