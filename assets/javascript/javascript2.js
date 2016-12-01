@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     //ensure that play again modal and user turns box hidden until game starts
     $('#play-again-box').hide();
-    $('#exit-game-body').hide();
+    $('#exit-game-box').hide();
     $('#selection-menu').hide();
     $('tbody').empty();
 
@@ -105,6 +105,8 @@ function joinGame() {
 
     //check for child nodes in lobby, if there are none then add to lobby otherwise grab the oldest to be the opponen
     let query = lobbyFolder.orderByKey();
+    $('#play-again-box').hide();
+    $('#exit-game-box').hide();
 
     query.once("value")
         .then(function(snapshot) {
@@ -261,6 +263,7 @@ function addGameListeners() {
 
             //exit game if opponent elects not to replay
             if (snapshot.val() === false) {
+                console.log('calling exit from replay listener');
                 exitGame();
             }
 
@@ -353,7 +356,7 @@ function addGameListeners() {
 
                     });
 
-                }, 5000);
+                }, 4000);
 
             }
 
@@ -491,7 +494,7 @@ function gameLogic(userChoice, opponentChoice, userWins, opponentWins) {
         //momentarily wait to trigger win-game protocol
         setTimeout(function() {
             gameFolder.child(gameID).update({ winner: user });
-        }, 2000);
+        }, 3000);
 
     }
 
@@ -503,7 +506,7 @@ function gameLogic(userChoice, opponentChoice, userWins, opponentWins) {
         //unhide choice bar
         $('#selection-menu').show();
 
-    }, 2000);
+    }, 3000);
 
 }
 
@@ -605,6 +608,8 @@ function endOfGame() {
         p1wins: 0,
         p2wins: 0,
         winner: '',
+        p1message: '',
+        p2message: ''
 
     })
 
@@ -631,8 +636,9 @@ function endOfGame() {
 }
 
 function exitGame() {
-
-    $('#exit-game-body').show();
+    console.log('in the exit function');
+    $('#play-again-box').hide();
+    $('#exit-game-box').show();
 
     //clear out user and opponent status boxes
     $('#user-message').html('');
@@ -648,29 +654,35 @@ function exitGame() {
     //clear out gamelog text
     $('tbody').empty();
 
+    //empty the chat window
+    $('#chat-panel').empty();
     setTimeout(function() {
 
-        //hide this modal after a few seconds so that user knows what is going on
-        $('exit-game-body').hide();
+            //hide this modal after a few seconds so that user knows what is going on
+            $('exit-game-box').hide();
 
-        //send user to lobby - show message, add them to lobby folder, remove event listeners
-        $('#lobby-message').show();
-
-        //remove listeners from gameID folder
-        gameFolder.child(gameID).off();
-        db.ref('/users/' + opponent).off();
-        gameFolder.child(gameID).child('winner').off();
-        db.ref('/users/' + user + '/currentGame').off();
-
-        //empty out user's current game assignment in their account id folder
-        db.ref('/users/' + user).update({ currentGame: '' });
-
-        //go back to lobby or start a new game if someone is available
-        joinGame();
+            //send user to lobby - show message, add them to lobby folder, remove event listeners
+            $('#lobby-message').show();
 
 
-    }, 3000);
+            setTimeout(function() {
+
+                //remove listeners from gameID folder
+                gameFolder.child(gameID).off();
+                db.ref('/users/' + opponent).off();
+                gameFolder.child(gameID).child('winner').off();
+                db.ref('/users/' + user + '/currentGame').off();
+
+                //empty out user's current game assignment in their account id folder
+                db.ref('/users/' + user).update({ currentGame: '' });
+
+                //go back to lobby or start a new game if someone is available
+                joinGame();
+
+
+            }, 3000);
+        }, 2000
+    }
 
 
 }
-

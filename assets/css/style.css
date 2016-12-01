@@ -42,7 +42,7 @@ h2 {
 	color: red;
 }
 
-#play-again-box{
+#play-again-box, #lobby-message{
 	display: none;
    background-color: rgb(231,231,231);
 }
